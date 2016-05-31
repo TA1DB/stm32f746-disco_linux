@@ -56,7 +56,7 @@ $(obj)/compressed/vmlinux: $(obj)/Image FORCE
 ifeq ($(CONFIG_KERNEL_COMPRESS_NONE),y)
 $(obj)/zImage: FORCE
 	@echo 'Kernel configured for no compression (CONFIG_COMPRESS_NONE=y)'
-	@false
+#	@false
 else
 $(obj)/zImage:	$(obj)/compressed/vmlinux FORCE
 	$(call if_changed,objcopy)

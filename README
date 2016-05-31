@@ -1,8 +1,7 @@
-This is the source tree of the uClinux kernel that is part of the Linux
-Cortex-M distribution maintained by Emcraft Systems.
+This fork of linux-emcraft repo contains support for STM32F746G-DISCO board.
 
-The list of Cortex-M3 and Cortex-M4 MCUs and boards supported by this
-version of Linux Cortex-M is available at http://www.emcraft.com.
+initdir contains a builed busybox from https://www.busybox.net/downloads
 
-If you want to contribute code to this source tree, please email your
-patches to a2f-linux-support@emcraft.com.
+Current status contains drivers for: 
+
+* lcd framebuffer

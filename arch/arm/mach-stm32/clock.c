@@ -116,6 +116,22 @@
 #define STM32_RCC_ENR_LTDCEN		(1 << 26)
 
 /*
+ * STM32 ENR bit for GPIOs
+ */
+
+#define  RCC_GPIOA_ENABLE	BIT(0)
+#define  RCC_GPIOB_ENABLE	BIT(1)
+#define  RCC_GPIOC_ENABLE	BIT(2)
+#define  RCC_GPIOD_ENABLE	BIT(3)
+#define  RCC_GPIOE_ENABLE	BIT(4)
+#define  RCC_GPIOF_ENABLE	BIT(5)
+#define  RCC_GPIOG_ENABLE	BIT(6)
+#define  RCC_GPIOH_ENABLE	BIT(7)
+#define  RCC_GPIOI_ENABLE	BIT(8)
+#define  RCC_GPIOJ_ENABLE	BIT(9)
+#define  RCC_GPIOK_ENABLE	BIT(10)
+
+/*
  * Clock values
  */
 static u32 clock_val[CLOCK_END];
@@ -318,6 +334,172 @@ static struct clk clk_sai_r = {
 	.clk_set_rate = sai_r_clk_set_rate,
 };
 
+static void gpioa_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOA_ENABLE;
+}
+
+static void gpioa_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOA_ENABLE;
+}
+
+static void gpiob_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOB_ENABLE;
+}
+
+static void gpiob_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOB_ENABLE;
+}
+
+static void gpioc_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOC_ENABLE;
+}
+
+static void gpioc_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOC_ENABLE;
+}
+
+static void gpiod_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOD_ENABLE;
+}
+
+static void gpiod_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOD_ENABLE;
+}
+
+static void gpioe_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOE_ENABLE;
+}
+
+static void gpioe_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOE_ENABLE;
+}
+
+static void gpiof_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOF_ENABLE;
+}
+
+static void gpiof_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOF_ENABLE;
+}
+
+static void gpiog_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOG_ENABLE;
+}
+
+static void gpiog_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOG_ENABLE;
+}
+
+static void gpioh_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOH_ENABLE;
+}
+
+static void gpioh_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOH_ENABLE;
+}
+
+static void gpioi_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOI_ENABLE;
+}
+
+static void gpioi_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOI_ENABLE;
+}
+
+static void gpioj_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOJ_ENABLE;
+}
+
+static void gpioj_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOJ_ENABLE;
+}
+
+static void gpiok_clk_enable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr |= RCC_GPIOK_ENABLE;
+}
+
+static void gpiok_clk_disable(struct clk *clk)
+{
+	STM32_RCC->ahb1enr &= ~RCC_GPIOK_ENABLE;
+}
+
+static struct clk clk_gpioa = {
+	.clk_enable = gpioa_clk_enable,
+	.clk_disable = gpioa_clk_disable,
+};
+
+static struct clk clk_gpiob = {
+	.clk_enable = gpiob_clk_enable,
+	.clk_disable = gpiob_clk_disable,
+};
+
+static struct clk clk_gpioc = {
+	.clk_enable = gpioc_clk_enable,
+	.clk_disable = gpioc_clk_disable,
+};
+
+static struct clk clk_gpiod = {
+	.clk_enable = gpiod_clk_enable,
+	.clk_disable = gpiod_clk_disable,
+};
+
+static struct clk clk_gpioe = {
+	.clk_enable = gpioe_clk_enable,
+	.clk_disable = gpioe_clk_disable,
+};
+
+static struct clk clk_gpiof = {
+	.clk_enable = gpiof_clk_enable,
+	.clk_disable = gpiof_clk_disable,
+};
+
+static struct clk clk_gpiog = {
+	.clk_enable = gpiog_clk_enable,
+	.clk_disable = gpiog_clk_disable,
+};
+
+static struct clk clk_gpioh = {
+	.clk_enable = gpioh_clk_enable,
+	.clk_disable = gpioh_clk_disable,
+};
+
+static struct clk clk_gpioi = {
+	.clk_enable = gpioi_clk_enable,
+	.clk_disable = gpioi_clk_disable,
+};
+
+static struct clk clk_gpioj = {
+	.clk_enable = gpioj_clk_enable,
+	.clk_disable = gpioj_clk_disable,
+};
+
+static struct clk clk_gpiok = {
+	.clk_enable = gpiok_clk_enable,
+	.clk_disable = gpiok_clk_disable,
+};
+
+
 /*
  * Array of all clock to register with the `clk_*` infrastructure
  */
@@ -331,6 +513,17 @@ static struct clk_lookup stm32_clkregs[] = {
 	INIT_CLKREG(&clk_mci, "mmci-pl18x", NULL),
 	INIT_CLKREG(&clk_ltdc, "stm32f4-ltdc.0", NULL),
 	INIT_CLKREG(&clk_sai_r, NULL, "sai_r_clk"),
+	INIT_CLKREG(&clk_gpioa, NULL, "gpioa"),
+	INIT_CLKREG(&clk_gpiob, NULL, "gpiob"),
+	INIT_CLKREG(&clk_gpioc, NULL, "gpioc"),
+	INIT_CLKREG(&clk_gpiod, NULL, "gpiod"),
+	INIT_CLKREG(&clk_gpioe, NULL, "gpioe"),
+	INIT_CLKREG(&clk_gpiof, NULL, "gpiof"),
+	INIT_CLKREG(&clk_gpiog, NULL, "gpiog"),
+	INIT_CLKREG(&clk_gpioh, NULL, "gpioh"),
+	INIT_CLKREG(&clk_gpioi, NULL, "gpioi"),
+	INIT_CLKREG(&clk_gpioj, NULL, "gpioj"),
+	INIT_CLKREG(&clk_gpiok, NULL, "gpiok"),
 };
 
 /*

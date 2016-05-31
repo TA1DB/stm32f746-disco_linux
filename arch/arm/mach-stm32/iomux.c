@@ -47,6 +47,8 @@
  */
 #define STM32F2_GPIO_OTYPE_PP	0x00
 #define STM32F2_GPIO_OTYPE_OD	0x01
+#define STM32F7_GPIO_OTYPE_PP	0x02
+#define STM32F7_GPIO_OTYPE_OD	0x12
 
 /*
  * GPIO output maximum frequency
@@ -247,7 +249,8 @@ static int stm32f2_gpio_config(
 		break;
 	case STM32F2_GPIO_ROLE_SDIO:
 	case STM32F2_GPIO_ROLE_LTDC:
-		otype  = STM32F2_GPIO_OTYPE_PP;
+		//otype  = STM32F2_GPIO_OTYPE_PP;
+		otype  = STM32F7_GPIO_OTYPE_PP;
 		ospeed = STM32F2_GPIO_SPEED_50M;
 		pupd   = STM32F2_GPIO_PUPD_NO;
 		break;
@@ -768,7 +771,36 @@ uartdone:
 			}
 		}
 #endif /* CONFIG_STM32_FB */
+#if defined(CONFIG_STM32F7_DISCO_FB)
+		{
+				struct stm32f2_gpio_dsc lcd_disp_pins[] = {
+					{8, 12},
+					{10, 3},
+				};
+				struct stm32f2_gpio_dsc lcd_gpio[] = {
+					{8, 8}, {8, 9}, {8, 10}, {8, 13},
+					{8, 14},
+				/*	{8, 15}, {4, 4}, {6, 12}, {9, 0}, 
+				 *	{9, 1}, 
+				 *	TEST THESE - if compile in, eth0 fails 
+				 *	... maybe is ethernet gpios
+				 */
+					{9, 2}, {9, 3}, {9, 4}, {9, 5}, {9, 6},
+					{9, 7}, {9, 8}, {9, 9}, {9, 10}, 
+					{9, 11}, {9, 12}, {9, 13}, {9, 14},
+					{9, 15}, {10, 0}, {10, 1}, {10, 2},
+					{10, 4}, {10, 5}, {10, 6}, {10, 7},
+				};
+				int i;
 
+				for (i = 0; i < ARRAY_SIZE(lcd_gpio); i++)
+					stm32f2_gpio_config(&lcd_gpio[i],
+						    STM32F2_GPIO_ROLE_LTDC);
+				for (i = 0; i < ARRAY_SIZE(lcd_disp_pins); i++)
+					stm32f2_gpio_config(&lcd_disp_pins[i],
+						    STM32F2_GPIO_ROLE_OUT);
+		}
+#endif
 		break;
 #else
 	/* STM32F1-based platforms */

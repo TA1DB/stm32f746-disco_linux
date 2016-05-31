@@ -298,4 +298,8 @@ static void __init stm32_init(void)
 	 */
 	stm32f4x9_fb_init();
 #endif
+
+#if defined(CONFIG_STM32F7_DISCO_FB)
+	stm32f7_fb_init();
+#endif
 }

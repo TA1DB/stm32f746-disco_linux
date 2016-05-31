@@ -1,11 +1,4 @@
 /*
- * (C) Copyright 2015
- * Emcraft Systems, <www.emcraft.com>
- * Alexander Potashev <aspotashev@emcraft.com>
- *
- * See file CREDITS for list of people who contributed to this
- * project.
- *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
  * published by the Free Software Foundation; either version 2 of
@@ -22,32 +15,39 @@
  * MA 02111-1307 USA
  */
 
-#ifndef _MACH_STM32_FB_H_
-#define _MACH_STM32_FB_H_
-
 #include <linux/init.h>
+#include <linux/platform_device.h>
+#include <linux/irq.h>
+#include <linux/dma-mapping.h>
+#include <linux/delay.h>
+#include <linux/gpio.h>
 
-/*
- * LTDC regs
- */
-#define STM32F4_LTDC_BASE	0x40016800
-#define STM32F4_LTDC_LENGTH	0x400
+#include <mach/stm32.h>
+#include <mach/fb.h>
+#include <mach/platform.h>
 
-void __init stm32f4x9_fb_init(void);
-void __init stm32f7_fb_init(void);
-
-struct stm32f4_fb_platform_data {
-	const char *mode_str;
-	int (*init) (int);
-
-	struct fb_videomode *modes;
-	unsigned int modes_size;
+static struct resource stm32f7_fb_resources[] = {
+	{
+		.start	= STM32F4_LTDC_BASE,
+		.end	= STM32F4_LTDC_BASE + STM32F4_LTDC_LENGTH - 1,
+		.flags	= IORESOURCE_MEM,
+	},
+	/*
+	{
+		.start	= STM32F4_LTDC_IRQ,
+		.flags	= IORESOURCE_IRQ,
+	},
+	*/
 };
 
-static inline int stm32f4_fb_is_running(void)
-{
-	/* Check LTDC_GCR[LTDCEN] */
-	return *(volatile u32 *)(STM32F4_LTDC_BASE + 0x18) & 1;
-}
+static struct platform_device fb_pdev = {
+	.name = "stm32f7-ltdc",
+	.num_resources = ARRAY_SIZE(stm32f7_fb_resources),
+	.resource = stm32f7_fb_resources,
+};
 
-#endif /* _MACH_STM32_FB_H_ */
+void __init stm32f7_fb_init(void)
+{
+	if (platform_device_register(&fb_pdev))
+		pr_info("failed to register %s device\n", "stm32f7-ltdc");
+}

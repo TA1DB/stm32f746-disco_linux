@@ -2,6 +2,15 @@ This fork of linux-emcraft repo contains support for STM32F746G-DISCO board.
 
 initdir contains a builed busybox from https://www.busybox.net/downloads
 
+use make stm32f746_disco_defconfig to configure a kernel configuration with
+support following STM32 IPs: USART, LTDC (framebuffer).
+
+
 Current status contains drivers for: 
 
 * lcd framebuffer
+
+------------------------------------------------------------------------------
+Code contributed from TEI Crete, Department of Computer Science in context of
+FP7 Dreams project.
+------------------------------------------------------------------------------
